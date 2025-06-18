@@ -6,6 +6,7 @@ import "./css/style.css";
 import DataTable from "datatables.net";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import { baseUrl, d2Delete, d2Get, d2PostJson, performPostAndGet } from "./js/d2api.js";
+import { loadLegacyHeaderBarIfNeeded } from "./js/check-header-bar.js";
 window.DataTable = DataTable;
 
 function getContextPath() {
@@ -260,7 +261,7 @@ async function shareDashboardWithAlert(dashboard_uid) {
         await shareDashboardWithCurrentUser(dashboard_uid);
         alert("Dashboard shared with you");
     }
-}   
+}
 
 window.getContextPath = getContextPath;
 window.deleteAllEmptyDashboards = deleteAllEmptyDashboards;
@@ -279,6 +280,7 @@ window.renderTypeSelect = renderTypeSelect;
 window.baseUrl = baseUrl;
 
 (async () => {
+    loadLegacyHeaderBarIfNeeded();
     renderTypeSelect();
     const version = await checkVersion();
     me = await getMe();
